@@ -5,6 +5,21 @@ This is a minimal implementation of a US address parser built using [spaCy NLP](
 - Python v3.x
 - [spaCy v3.x](https://spacy.io/usage#installation)
 <br><br>
+# How to run
+1. `training_data_prep.py` to read the csv file and convert them in the appropriate spaCy data format. 
+Finally, they are saved in a `DocBin` object.
+
+2. Once we have the data, it is necessary to prepare a **spaCy configuration file**,
+here located in `config/base_config`. This is a basic configuration, where we only set the things we need.
+
+3. spaCy needs however a different and more informative file, that is automatically created via command line with the
+following command (with the correct paths if you are in a different environment):
+`python -m spacy init fill-config ./config/base_config.cfg ./config/config.cfg`
+4. A new file called config.cfg is created. This is the file that needs to be used to train a model ex-novo. 
+Now, it is possible to run spaCy from command line to create a new model with the following command:
+`python -m spacy train ./config/config.cfg --paths.train corpus/spacy-docbins/train.spacy --paths.dev corpus/spacy-docbins/test.spacy --outp
+ut output/models --training.eval_frequency 10 --training.max_steps 300`
+
 # Folders 
 
 ## Training corpus

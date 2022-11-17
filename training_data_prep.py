@@ -4,6 +4,13 @@ import pandas as pd
 import re
 pd.set_option('display.max_colwidth', -1)
 
+
+"""Script containg the process reading the data from csv files, converting them in a DocBin, and saving them on disk.
+
+This is done both for training and test data.
+"""
+
+
 def massage_data(address):
     '''Pre process address string to remove new line characters, add comma punctuations etc.'''
     cleansed_address1=re.sub(r'(,)(?!\s)',', ',address)
@@ -51,11 +58,14 @@ def create_entity_spans(df,tag_list):
     return df['EntitySpans']
 
 def get_doc_bin(training_data,nlp):
-    '''Create DocBin object for building training/test corpus'''
+    '''Create DocBin object for building training/test corpus
+
+    training_data list of data to be saved, in the format required by spaCy
+    nlp model being used '''
     # the DocBin will store the example documents
     db = DocBin()
     for text, annotations in training_data:
-        doc = nlp(text) #Construct a Doc object
+        doc = nlp(text) #Construct a Doc object from the text
         ents = []
         for start, end, label in annotations:
             span = doc.char_span(start, end, label=label)
@@ -67,18 +77,18 @@ def get_doc_bin(training_data,nlp):
 #Load blank English model. This is needed for initializing a Document object for our training/test set.
 nlp = spacy.blank("en")
 
-#Define custom entity tag list
+#Define custom entity tag list - these are the classes for which the model is trained
 tag_list=["BuildingTag","BuildingNoTag","RecipientTag","StreetNameTag","ZipCodeTag","CityTag","StateTag","CountryTag"]
 
 ###### Training dataset prep ###########
 # Read the training dataset into pandas
 df_train=pd.read_csv(filepath_or_buffer="./corpus/dataset/us-train-dataset.csv",sep=",",dtype=str)
 
-# Get entity spans
+# Get entity spans - at the end of the method, we have the list of data in the format required by spaCy
 df_entity_spans= create_entity_spans(df_train.astype(str),tag_list)
 training_data= df_entity_spans.values.tolist()
 
-# Get & Persist DocBin to disk
+# Get & Persist DocBin to disk - convert the data in memory to a DocBin. Save the DocBin to disk
 doc_bin_train= get_doc_bin(training_data,nlp)
 doc_bin_train.to_disk("./corpus/spacy-docbins/train.spacy")
 ######################################

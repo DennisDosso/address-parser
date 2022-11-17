@@ -2,18 +2,19 @@
   "lang":"en",
   "name":"pipeline",
   "version":"0.0.0",
-  "spacy_version":">=3.1.2,<3.2.0",
+  "spacy_version":">=3.4.3,<3.5.0",
   "description":"",
   "author":"",
   "email":"",
   "url":"",
   "license":"",
-  "spacy_git_version":"e1f88de72",
+  "spacy_git_version":"Unknown",
   "vectors":{
     "width":0,
     "vectors":0,
     "keys":0,
-    "name":null
+    "name":null,
+    "mode":"default"
   },
   "labels":{
     "ner":[
@@ -42,14 +43,14 @@
     "ents_r":0.9770992366,
     "ents_per_type":{
       "BUILDING_NO":{
-        "p":0.9375,
-        "r":0.9375,
-        "f":0.9375
+        "p":0.9411764706,
+        "r":1.0,
+        "f":0.9696969697
       },
       "STREET_NAME":{
-        "p":0.9473684211,
+        "p":0.9,
         "r":1.0,
-        "f":0.972972973
+        "f":0.9473684211
       },
       "CITY":{
         "p":1.0,
@@ -78,10 +79,10 @@
       },
       "BUILDING_NAME":{
         "p":0.5,
-        "r":0.5,
-        "f":0.5
+        "r":0.25,
+        "f":0.3333333333
       }
     },
-    "ner_loss":0.0020140509
+    "ner_loss":0.0003469213
   }
 }

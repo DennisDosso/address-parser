@@ -1,6 +1,6 @@
 import spacy
 
-nlp=spacy.load("output\models\model-best")
+nlp=spacy.load("./output/models/model-best")
 
 address_list=["130 W BOSE ST STE 100, PARK RIDGE, IL, 60068, USA",
               "8311 MCDONALD RD, HOUSTON, TX, 77053-4821, USA",
@@ -25,7 +25,7 @@ print("Address string -> "+address)
 print("Parsed address -> "+str(ent_list))
 
 # Loading Entity Ruler coupled NER model and checking prediction
-nlp=spacy.load("output\models_er\model-best")
+nlp=spacy.load("./output/models_er/model-best")
 
 doc=nlp(address)
 ent_list=[(ent.text, ent.label_) for ent in doc.ents]
